@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Page</title>
+    <link rel="stylesheet" href="{% static 'jquery/date/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'jquery/date/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'jquery/date/jquery-ui.js' %}"></script>
+    <script src="{% static 'jquery/time/jquery.timepicker.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'jquery/time/jquery.timepicker.css' %}" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+    <script>
+        function myFunction() {
+
+                var field = document.getElementById('partial_payment');
+
+                field.addEventListener('input', function() {
+                var val = document.getElementById('partial_payment').value;
+                if (val<10) {
+                    field.setCustomValidity('pay at least {{partial_payment_rate}}%');
+                } 
+                else if(val>100){
+                    field.setCustomValidity("Can't pay more than 100%");
+                }
+                else {
+                    event.target.setCustomValidity('');
+                   
+                }
+
+                var x = document.getElementById("partial_payment").value;
+                var cost=0.0;
+                estimated_cost=document.getElementById("estimated_cost").value;
+                cost=(estimated_cost*(x/100)).toFixed(2);
+                due=(estimated_cost-cost).toFixed(2);
+                document.getElementById("demo").innerHTML = "You are paying: ৳ " + cost;
+                document.getElementById("due").innerHTML = "Due payment: ৳ " + due;
+                document.getElementById("partial_payment_in_tk").value = cost;
+                document.getElementById("due_payment").value = due;
+                document.getElementById("print").value = "hello";
+                });    
+           
+            }
+    </script>
+</head>
+
+<body>
+
+
+    <!-- Navbar Start -->
+    <div class="p-0">
+        <nav class="navbar navbar-expand-lg bg-secondary navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="/" class="navbar-brand ml-lg-3">
+                <h1 class="m-0 text-primary">
+                  <i class="mr-3"></i>
+                  <span>
+                    <img class="w-75" style="max-width: 200px;"  src="{% static 'img/logo.png' %}" alt="7TonExtess">
+                  </span>
+                </h1>
+              </a>
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="/" class="nav-item nav-link text-white">Home</a>
+                    <div class="navbar-nav mx-auto py-0">
+                        <a href="https://7tonexpress.com/#service" class="nav-item nav-link text-white">Service</a>
+                        <a href="https://7tonexpress.com/#about" class="nav-item nav-link text-white">About</a>
+                        <a href="https://7tonexpress.com/#contact" class="nav-item nav-link text-white">Contact</a>
+                      </div>
+                </div>
+                <span class="nav-item nav-link text-white"> Hi, {{fullname}}</span>
+                <a href="https://auth.buy-now.biz:8443/realms/7-ton-express/protocol/openid-connect/logout" target="_blank" class="nav-item nav-link text-white">Buynow Logout</a>
+                &nbsp; &nbsp;
+        <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                        <button type="submit" class="btn btn-primary py-2 px-4 d-none d-lg-block">Log out</button>
+        </form>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!--{{delivery_rate_row}}
+    {{estimated_rate}}-->
+    <div class="info-container-2">
+        <form method="post" action="/third/">
+            {% csrf_token %}
+
+            <div class="container">
+                <div class="m-auto w-100">
+                    <div class=" shadow mt-4">
+                        <div class="h1 text-center bg-primary text-white p-1">Recipient Info</div>
+                        <div class="readonly row px-2 pt-2 form-group">
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="h6" for="country">Country:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" id="country" name="country" value="{{country}}" readonly><br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="h6" for="state">State:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" id="state" name="state" value="{{state}}" readonly><br>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="h6" for="delivery_type">Delivery type:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" id="delivery_type_print" name="delivery_type_print" value="{{delivery_type_print}}"
+                                        readonly><br>
+                                    <input class="form-control" type="text" id="delivery_type" name="delivery_type" value="{{delivery_type}}" readonly hidden>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label class="h6" for="">Estimated weight (kg) :</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input class="form-control" class="form-control" type="text" id="estimated_weight" name="estimated_weight" value="{{estimated_weight}}" readonly><br>
+                                    </div>
+                                </div><div class="row">
+                                    <div class="col-md-5">
+                                        <label class="h6" for="payment">Estimated cost (৳) :</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="text" id="estimated_cost" name="estimated_cost" value="{{estimated_cost_in_BDT}}" readonly><br>
+                                    </div>
+                                </div><div class="row">
+                                    <div class="col-md-5">
+                                        <label class="h6" for="payment">Estimated cost ($):</label>
+
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="text" id="estimated_cost" name="estimated_cost_in_USD" value="{{estimated_cost_in_USD}}"
+                                        readonly><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--<p class="title">Give us more info:</p>-->
+
+                    <div class="more_info">
+                        <div class="sender_details">
+                            <h2>Sender Details-----</h2>
+                            <label class="h6" for="sender_name">Sender Name:</label><br>
+                            <input class="form-control" type="text" id="sender_name" name="sender_name" value="" autocomplete="off"><br>
+                            <label class="h6" for="sender_phn">Sender Phone Number:</label><br>
+                            <input class="form-control" type="text" id="sender_phn" name="sender_phn" value="" autocomplete="off"><br>
+                            <label class="h6" for="sender_email">Sender Email:</label><br>
+                            <input class="form-control" type="text" id="sender_email" name="sender_email" value="" autocomplete="off"><br>
+                        </div>
+                        <div class="pickup_details">
+                            <h2>Package Pickup Address-----</h2>
+
+                            <script src="{% static 'scripts/jquery.toselect.js' %}"></script>
+                            <script>
+                                $(function () {
+                                    $('#myToSelect').toSelect();
+                                })
+                            </script>
+
+                            <select id="myToSelect" data-parent="#parent" data-child="#child">
+                                <!--<option value=""></option>-->
+                                <optgroup label="TextValue['Bangladesh','Bangladesh']">
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="Rajshahi">Rajshahi</option>
+                                    <option value="Chittangon">Chittagong</option>
+                                </optgroup>
+                                <optgroup label="TextValue['USA','USA']">
+                                    <option value="New York">New York</option>
+                                    <option value="Florida">Florida</option>
+                                    <option value="Alaska">Alaska</option>
+                                </optgroup>
+                                <optgroup label="TextValue['Canada','Canada']">
+                                    <option value="Ontario"> Ontario</option>
+                                    <option value="Alberta">Alberta</option>
+                                    <option value="Quebec">Quebec</option>
+                                </optgroup>
+                            </select>
+
+                                <label class="h6">Country:</label>
+                                <select id="parent" name="parent" class="form-control">
+                                    <option value="" data-keep="true">Please select country</option>
+                                </select>
+                            <br/>
+
+                            <label class="h6" id="stateLabel">State/Division</label>
+                            <select id="child" name="child" class="form-control">
+                                <option value="" data-keep="true">Please select</option>
+                            </select>
+
+                            <script>$(function () {
+                                    $('#parent').change(function () {
+                                        if ($(this).val() == 'Bangladesh') {
+                                            $('#stateLabel').text('Division');
+                                        } else if ($(this).val() == 'USA' || $(this).val() == 'Other') {
+                                            $('#stateLabel').text('State');
+                                        } else {
+                                            $('#stateLabel').text('State');
+                                        }
+                                    });
+                                });</script>
+
+                            <link rel="stylesheet" href="{% static 'tempus-dominus.css' %}" />
+
+                            <script src="{% static 'popper.min.js' %}"></script>
+
+                            <script src="{% static 'tempus-dominus.js' %}"></script>
+                            <br>
+                            <label class="h6" for="pick_house_number">House Number:</label><br>
+                            <input class="form-control" type="text" id="pick_house_number" name="pick_house_number" value="" autocomplete="off"><br>
+                            <label class="h6" for="pick_street_name">Street name:</label><br>
+                            <input class="form-control" type="text" id="pick_street_name" name="pick_street_name" value="" autocomplete="off"><br>
+                            <label class="h6" for="pick_apartment_number">Apartment/Suite/Room number (if any):</label><br>
+                            <input class="form-control" type="pick_apartment_number" id="pick_apartment_number" name="pick_apartment_number" value=""
+                                autocomplete="off"><br>
+                            <label class="h6" for="pick_town">Name of town:</label><br>
+                            <input class="form-control" type="text" id="pick_town" name="pick_town" value="" autocomplete="off"><br>
+                            <label class="h6" for="pick_zip_code">Zip code:</label><br>
+                            <input class="form-control" type="text" id="pick_zip_code" name="pick_zip_code" value="" autocomplete="off"><br>
+
+
+
+                        </div>
+                        <div class="recipient_address">
+                            <h2>Recipient Details-----</h2>
+                            <label class="h6" for="recipient_name">Recipient Name:</label><br>
+                            <input class="form-control" type="text" id="recipient_name" name="recipient_name" value="" autocomplete="off"><br>
+                            <label class="h6" for="phn">Recipient Phone:</label><br>
+                            <input class="form-control" type="text" id="phone" name="phone" value="" autocomplete="off"><br>
+                            <label class="h6" for="email_1">Recipient Email 1:</label><br>
+                            <input class="form-control" type="text" id="email_1" name="email_1" value="" autocomplete="off"><br>
+                            <label class="h6" for="email_2">Recipient Email 2:</label><br>
+                            <input class="form-control" type="text" id="email_2" name="email_2" value="" autocomplete="off"><br>
+
+                            <label class="h6" for="house_number">House Number:</label><br>
+                            <input class="form-control" type="text" id="house_number" name="house_number" value="" autocomplete="off"><br>
+                            <label class="h6" for="street_name">Street name:</label><br>
+                            <input class="form-control" type="text" id="street_name" name="street_name" value="" autocomplete="off"><br>
+                            <label class="h6" for="apartment_number">Apartment/Suite/Room number (if any):</label><br>
+                            <input class="form-control" type="apartment_number" id="apartment_number" name="apartment_number" value=""
+                                autocomplete="off"><br>
+                            <label class="h6" for="town">Name of town:</label><br>
+                            <input class="form-control" type="text" id="town" name="town" value="" autocomplete="off"><br>
+                            <label class="h6" for="zip_code">Zip code:</label><br>
+                            <input class="form-control" type="text" id="zip_code" name="zip_code" value="" autocomplete="off"><br>
+                            <input class="form-control" type="hidden" id="delivery_company_phn" name="delivery_company_phn" value="null"
+                                autocomplete="off"><br>
+                            <label class="h6" for="po_box">P/o Box Number:</label><br>
+                            <input class="form-control" type="text" id="po_box" name="po_box" value="" autocomplete="off"><br>
+                        </div>
+
+                        <div class="payment_details">
+                            <label class="h6" for="partial_payment_rate">Amount you want to pay (in percentage): </label>
+                            <!--<input class="form-control" type="number" min="{{partial_payment_rate}}" max="100" step="1" oninput class="form-control"="myFunction()" onfocus="myFunction()" onchange="myFunction()" id="partial_payment" placeholder="100">-->
+                            <input type="number" min="{{partial_payment_rate}}" max="100" step="1" oninput="myFunction()" onfocus="myFunction()" onchange="myFunction()"id="partial_payment" placeholder="100">
+                            <p id="demo"> You are paying: ৳ {{estimated_cost_in_BDT}}</p>
+                            <p id="due">Due payment: ৳ 0.0</p>
+                            <p id="print"></p>
+                            <input class="form-control" type="hidden" id="partial_payment_in_tk" name="partial_payment_in_tk" value="" readonly><br>
+                            <input class="form-control" type="hidden" id="due_payment" name="due_payment" value="" readonly>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="hidd_input class="form-control"">
+                        <input class="form-control" type="hidden" id="height" name="height" value="{{height}}" readonly>
+                        <input class="form-control" type="hidden" id="width" name="width" value="{{width}}" readonly>
+                        <input class="form-control" type="hidden" id="Length" name="length" value="{{length}} " readonly>
+                        <input class="form-control" type="hidden" id="weight" name="weight" value="{{weight}}" readonly>
+                        <input class="form-control" type="hidden" id="pickup_date_1" name="pickup_date_1" value="{{pickup_date_1}}" readonly>
+                        <input class="form-control" type="hidden" id="pickup_date_2" name="pickup_date_2" value="{{pickup_date_2}}" readonly>
+                        <input class="form-control" type="hidden" id="volumetric_weight" name="volumetric_weight" value="{{volumetric_weight}}"
+                            readonly>
+                        <input class="form-control" type="hidden" id="product_list" name="product_list" value="{{product_list}}" readonly>
+                    </div>
+                    <div>
+                        <input style="width:100%;" class="btn btn-primary"  type="submit" value="Continue" name="continue-btn">
+                    </div>
+                </form>
+                </div>
+            </div>
+    </div>
+    <!-- Footer Start -->
+    <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-1" style="margin-top: 90px">
+        <div class="container mt-2 pt-5">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Get In Touch</h3>
+                    <p>
+                        <i class="fa fa-map-marker-alt mr-2"></i>Gulfesha Plaza, Level 3, Suite No J/K, 8, Shahid Shangbadik Selina Parvin Sarok, Moghbazar, Ramna, Dhaka, PO : 1217,
+                        Bangladesh
+                    </p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+88001611106000 +880018413624360</p>
+                    <p><i class="fa fa-envelope mr-2"></i>info@7tonexpress.com</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+                        <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Our Services</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="https://7tonexpress.com/freight-forward.html"><i class="fa fa-angle-right mr-2"></i>Freight Forwarding</a>
+                        <a class="text-white-50 mb-2" href="https://7tonexpress.com/buy-bring.html"><i class="fa fa-angle-right mr-2"></i>Buy and Bring</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>International Courier</a>
+                      </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 border-top py-4"
+        style="border-color: rgba(256, 256, 256, 0.1) !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                    <p class="m-0">
+             2022  &copy;
+                        <a class="text-white" href="#">7TonExpress </a>. All Rights
+                        Reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0">
+                        Designed by
+                        <a class="text-white" href="/">7TonExpress
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

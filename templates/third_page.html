@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cost page</title>
+  <link rel="stylesheet" href="{% static 'jquery/date/jquery-ui.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <script src="{% static 'jquery/date/jquery-3.6.0.js' %}"></script>
+  <script src="{% static 'jquery/date/jquery-ui.js' %}"></script>
+  <script src="{% static 'jquery/time/jquery.timepicker.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'jquery/time/jquery.timepicker.css' %}" />
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <!-- Navbar Start -->
+  <div class="p-0">
+    <nav class="navbar navbar-expand-lg bg-secondary navbar-light py-3 py-lg-0 px-lg-5">
+      <a href="/" class="navbar-brand ml-lg-3">
+        <h1 class="m-0 text-primary">
+          <i class="mr-3"></i>
+          <span>
+            <img class="w-75" style="max-width: 200px;"  src="{% static 'img/logo.png' %}" alt="7TonExtess">
+          </span>
+        </h1>
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+        <div class="navbar-nav mx-auto py-0">
+          <a href="/" class="nav-item nav-link text-white">Home</a>
+          <a href="https://7tonexpress.com/#service" class="nav-item nav-link text-white">Service</a>
+          <a href="https://7tonexpress.com/#about" class="nav-item nav-link text-white">About</a>
+          <a href="https://7tonexpress.com/#contact" class="nav-item nav-link text-white">Contact</a>
+        </div>
+          	<span class="nav-item nav-link text-white"> Hi, {{fullname}}</span>
+                <a href="https://auth.buy-now.biz:8443/realms/7-ton-express/protocol/openid-connect/logout" target="_blank" class="nav-item nav-link text-white">Buynow Logout</a>
+                &nbsp; &nbsp;
+        <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                {% endif %}
+                        <button type="submit" class="btn btn-primary py-2 px-4 d-none d-lg-block">Log out</button>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <!-- Navbar End -->
+
+  <a href="https://courier.etaka.online:8443/pending_delivery/" class="nav-item nav-link text-white">Pending
+    Delivery</a>
+  <a href="https://courier.etaka.online:8443/pending_payment/" class="nav-item nav-link text-white">Pending
+    payment</a>
+  <a href="https://courier.etaka.online:8443/completed_delivery/" class="nav-item nav-link text-white">Completed
+    Delivery</a>
+
+
+  <div class="container">
+    <div class="container m-auto text-center">
+      <h2 class="h2 p-5">
+        Delivery Details
+      </h2>
+      <div class="container shadow p-3 bordered-1 rounded" style="max-width: 700px; ">
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Recipient Name:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{recipient_name}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Recipient Address:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{house_number}} &nbsp; {{street_name}} &nbsp; {{apartment_number}}
+            <br>{{town}}, {{state}} &nbsp;{{country}}
+          </div>
+
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Contact Number:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{phone}}</div>
+
+
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Recipient Email 1:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{email_1}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Recipient Email 2:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{email_2}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Delivery type:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{delivery_type_print}}</div>
+
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Estimated Cost:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">৳&nbsp;{{estimated_cost}}</div>
+
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Amount you are paying:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">৳&nbsp;{{partial_payment}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6" style="color: red;"><span>Due payment:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test" style="color: red;">৳&nbsp;{{due_payment}}</div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Pickup date:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{pickup_date_1}}&nbsp;to&nbsp;{{pickup_date_2}}</div>
+        </div>
+
+
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Po Box:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{po_box}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Sender Name:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{sender_name}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Sender Phone Number:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{sender_phn}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Sender Email:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{sender_email}}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6 col-sm-12 text-md-start h6"><span>Pick up Address:</span></div>
+          <div class="col-md-6 col-sm-12 text-md-start test">{{pick_house_number}} &nbsp; {{pick_street_name}} &nbsp;
+            {{pick_apartment_number}} <br>{{pick_town}}, {{pick_state}}, &nbsp;{{pick_country}}</div>
+
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+      <form action="/test/" method="post" style="height:50px !important ; ">
+        {% csrf_token %}
+        <input type="hidden" id="pickup_date_1" name="pickup_date_1" value="{{pickup_date_1}}" readonly>
+        <input type="hidden" id="pickup_date_2" name="pickup_date_2" value="{{pickup_date_2}}" readonly>
+        <input type="hidden" id="recipient_name" name="recipient_name" value="{{recipient_name}}" readonly>
+        <input type="hidden" id="phone" name="phone" value="{{phone}} " readonly>
+        <input type="hidden" id="delivery_type" name="delivery_type" value="{{delivery_type}}" readonly>
+        <input type="hidden" id="estimated_cost" name="estimated_cost" value="{{estimated_cost}}" readonly>
+        <input type="hidden" id="estimated_weight" name="estimated_weight" value="{{estimated_weight}}" readonly>
+        <input type="hidden" id="country" name="country" value="{{country}} " readonly>
+        <input type="hidden" id="state" name="state" value="{{state}}" readonly>
+        <input type="hidden" id="house_number" name="house_number" value="{{house_number}}" readonly>
+        <input type="hidden" id="street_name" name="street_name" value="{{street_name}}" readonly>
+        <input type="hidden" id="apartment_number" name="apartment_number" value="{{apartment_number}}" readonly>
+        <input type="hidden" id="zip_code" name="zip_code" value="{{zip_code}}" readonly>
+        <input type="hidden" id="town" name="town" value="{{town}}" readonly>
+        <input type="hidden" id="volumetric_weight" name="volumetric_weight" value="{{volumetric_weight}}" readonly>
+        <input type="hidden" id="product_list" name="product_list" value="{{product_list}}" readonly>
+        <input type="hidden" id="email_1" name="email_1" value="{{email_1}}" readonly>
+        <input type="hidden" id="email_2" name="email_2" value="{{email_2}}" readonly>
+        <input type="hidden" id="po_box" name="po_box" value="{{po_box}}" readonly>
+        <input type="hidden" id="partial_payment" name="partial_payment" value="{{partial_payment}}" readonly>
+        <input type="hidden" id="delivery_company_phn" name="delivery_company_phn" value="{{delivery_company_phn}}"
+          readonly>
+        <input type="hidden" id="sender_phn" name="sender_phn" value="{{sender_phn}}" readonly>
+        <input type="hidden" id="sender_name" name="sender_name" value="{{sender_name}}" readonly>
+        <input type="hidden" id="sender_email" name="sender_email" value="{{sender_email}}" readonly>
+        <input type="hidden" id="pick_country" name="pick_country" value="{{pick_country}} " readonly>
+        <input type="hidden" id="pick_state" name="pick_state" value="{{pick_state}}" readonly>
+        <input type="hidden" id="pick_house_number" name="pick_house_number" value="{{pick_house_number}}" readonly>
+        <input type="hidden" id="pick_street_name" name="pick_street_name" value="{{pick_street_name}}" readonly>
+        <input type="hidden" id="pick_apartment_number" name="pick_apartment_number" value="{{pick_apartment_number}}"
+          readonly>
+        <input type="hidden" id="pick_zip_code" name="pick_zip_code" value="{{pick_zip_code}}" readonly>
+        <input type="hidden" id="pick_town" name="pick_town" value="{{pick_town}}" readonly>
+        <input  style="width: 100%; max-width: 700px;" class="btn btn-primary my-3" type="submit" value="Pay" >
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+  </div>
+
+  <!-- Footer Start -->
+  <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-1" style="margin-top: 90px">
+    <div class="container mt-2 pt-5">
+      <div class="row mb-2">
+        
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Get In Touch</h3>
+          <p>
+            <i class="fa fa-map-marker-alt mr-2"></i>Gulfesha Plaza, Level 3, Suite No J/K, 8, Shahid Shangbadik Selina Parvin Sarok, Moghbazar, Ramna, Dhaka, PO : 1217,
+            Bangladesh
+          </p>
+          <p><i class="fa fa-phone-alt mr-2"></i>+88001611106000 +880018413624360</p>
+          <p><i class="fa fa-envelope mr-2"></i>info@7tonexpress.com</p>
+          <div class="d-flex justify-content-start mt-4">
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+            <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Our Services</h3>
+          <div class="d-flex flex-column justify-content-start">
+            <a class="text-white-50 mb-2" href="https://7tonexpress.com/freight-forward.html"><i class="fa fa-angle-right mr-2"></i>Freight Forwarding</a>
+            <a class="text-white-50 mb-2" href="https://7tonexpress.com/buy-bring.html"><i class="fa fa-angle-right mr-2"></i>Buy and Bring</a>
+            <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>International Courier</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Quick Links</h3>
+          <div class="d-flex flex-column justify-content-start">
+            <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bg-dark text-white-50 border-top py-4"
+    style="border-color: rgba(256, 256, 256, 0.1) !important">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-md-6 col-sm-12 text-center text-md-left mb-3 mb-md-0">
+          <p class="m-0">
+ 2022  &copy;
+            <a class="text-white" href="#">7TonExpress </a>. All Rights
+            Reserved.
+          </p>
+        </div>
+        <div class="col-md-6 col-sm-12 text-center text-md-right">
+          <p class="m-0">
+            Designed by
+            <a class="text-white" href="/">7TonExpress
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

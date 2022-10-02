@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="{% static 'jquery/date/jquery-ui.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <script src="{% static 'jquery/date/jquery-3.6.0.js' %}"></script>
+  <script src="{% static 'jquery/date/jquery-ui.js' %}"></script>
+  <script src="{% static 'jquery/time/jquery.timepicker.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'jquery/time/jquery.timepicker.css' %}" />
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div align="">
+
+
+    <!-- Navbar Start -->
+    <div class="p-0">
+      <nav class="navbar navbar-expand-lg bg-secondary navbar-light py-3 py-lg-0 px-lg-5">
+        <a href="/" class="navbar-brand ml-lg-3">
+          <h1 class="m-0 text-primary">
+            <i class="mr-3"></i>
+            <span>
+              <img class="w-75" style="max-width: 200px;"  src="{% static 'img/logo.png' %}" alt="7TonExtess">
+            </span>
+          </h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+          <div class="navbar-nav mx-auto py-0">
+            <a href="/" class="nav-item nav-link text-white">Home</a>
+            <div class="navbar-nav mx-auto py-0">
+              <a href="https://7tonexpress.com/#service" class="nav-item nav-link text-white">Service</a>
+              <a href="https://7tonexpress.com/#about" class="nav-item nav-link text-white">About</a>
+              <a href="https://7tonexpress.com/#contact" class="nav-item nav-link text-white">Contact</a>
+            </div>
+          </div>
+          <span class="nav-item nav-link text-white"> Hi, {{fullname}}</span>
+          <a href="https://auth.buy-now.biz:8443/realms/7-ton-express/protocol/openid-connect/logout" target="_blank" class="nav-item nav-link text-white">Buynow Logout</a>
+&nbsp; &nbsp;
+<form method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button type="submit" class="btn btn-primary py-2 px-4 d-none d-lg-block">Log out</button>
+	</form>
+
+        </div>
+      </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <div class="container m-auto text-center">
+      <div class = "bg-primary rounded my-2 p-2">
+        <a href="https://7tonexpress.com:8443/pending_delivery/" class="btn btn-outline-light">Pending
+          Delivery</a>
+        <a href="https://7tonexpress.com:8443/pending_payment/" class="btn btn-outline-light">Pending
+          payment</a>
+        <a href="https://7tonexpress.com:8443/completed_delivery/" class="btn btn-outline-light">Completed
+          Delivery</a>
+      </div>
+    </div>
+
+
+    <div class="text-center">
+      <h3 class="h1 p-3 text-dark">Welcome to International Courier</h3>
+      <form method="post" action="/second/">
+        {% csrf_token %}
+
+        <script src="{% static 'scripts/jquery.toselect.js' %}"></script>
+        <script>
+          $(function () {
+            $('#myToSelect').toSelect();
+          })
+        </script>
+
+        <select id="myToSelect" data-parent="#parent" data-child="#child" class="form-select">
+          <!-- <optgroup label="TextValue['Bangladesh','Bangladesh']">
+            <option value="Dhaka">Dhaka</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Chittangon">Chittagong</option>
+          </optgroup> -->
+          <optgroup label="TextValue['USA','USA']">
+            <option value="New York">New York</option>
+            <option value="Florida">Florida</option>
+            <option value="Alaska">Alaska</option>
+          </optgroup>
+          <optgroup label="TextValue['Canada','Canada']">
+            <option value="Ontario"> Ontario</option>
+            <option value="Alberta">Alberta</option>
+            <option value="Quebec">Quebec</option>
+          </optgroup>
+          <optgroup label="TextValue['Australia','Australia']">
+            <option value="New South Wales">New South Wales</option>
+            <option value="Victoria">Victoria</option>
+            <option value="Queensland">Queensland</option>
+          </optgroup>
+        </select>
+
+        <div class="container">
+          <div class="w-100 m-autopb-1">
+            <div class="form-group text-start">
+              <div>
+              <div class="h5">
+                Country:
+              </div>  
+              </div>
+              <div>
+                <select id="parent" name="parent" class="form-control" >
+                  <option value="" data-keep="true">Please select country</option>
+                </select>
+              </div>
+            </div>
+    
+            <div class="form-group text-start">
+              <div>
+                <label class="h5" id="stateLabel">State/Division</label>
+              </div>
+              <div>
+                <select id="child" name="child" class="form-control">
+                  <option value="" data-keep="true">Please select</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>$(function () {
+            $('#parent').change(function () {
+              if ($(this).val() == 'Bangladesh') {
+                $('#stateLabel').text('Division');
+              } else if ($(this).val() == 'USA' || $(this).val() == 'Other') {
+                $('#stateLabel').text('State');
+              } else {
+                $('#stateLabel').text('State');
+              }
+            });
+          });</script>
+
+        <link rel="stylesheet" href="{% static 'tempus-dominus.css' %}" />
+
+        <script src="{% static 'popper.min.js' %}"></script>
+
+        <script src="{% static 'tempus-dominus.js' %}"></script>
+
+        <div class="container date-container" style="text-align:center;">
+
+          <span id='icon-only' class='log-event' style='display: inline-block'>
+
+          </span>
+
+          <!-- Datepicker -->
+
+          <link href="jquery-ui.css" rel="stylesheet">
+          <script src="jquery.js"></script>
+          <scrip src="jquery-ui.js">
+            </script>
+
+            <div class="shadow m-1 rounded-3 w-100 m-auto">
+              <p class="h4 bg-primary p-1 rounded text-white" align="center">Pick up Date</p>
+            <div class="h5 text-center form-group row p-3">
+              <div class="col-md-6">
+                <div>From: </div>
+                <input class="form-control text-center" type="text" id="datepicker" name="pickup_date_1" value="">
+              </div>
+              <div class="col-md-6">
+                <div>
+                  To:
+                </div>
+                 <input class="form-control text-center" type="text" id="datepicker2" name="pickup_date_2" value="">
+              </div>
+            </div>
+            </div>
+            
+
+        </div>
+
+        <script>
+          $("#accordion").accordion();
+
+          var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+          ];
+          $("#autocomplete").autocomplete({
+            source: availableTags
+          });
+
+          $("#button").button();
+          $("#button-icon").button({
+            icon: "ui-icon-gear",
+            showLabel: false
+          });
+
+          $("#radioset").buttonset();
+
+          $("#controlgroup").controlgroup();
+
+          $("#tabs").tabs();
+
+          $("#dialog").dialog({
+            autoOpen: false,
+            width: 400,
+            buttons: [
+              {
+                text: "Ok",
+                click: function () {
+                  $(this).dialog("close");
+                }
+              },
+              {
+                text: "Cancel",
+                click: function () {
+                  $(this).dialog("close");
+                }
+              }
+            ]
+          });
+
+          // Link to open the dialog
+          $("#dialog-link").click(function (event) {
+            $("#dialog").dialog("open");
+            event.preventDefault();
+          });
+
+          $("#datepicker").datepicker({
+            inline: true
+          });
+
+          $("#datepicker2").datepicker({
+            inline: true
+          });
+
+        </script>
+
+
+
+
+        <div class="container">
+          <div class="row p-2 mt-4 shadow rounded-3 w-100 m-auto">
+            <div class="col-md-6">
+              <div class="h5 text-end">Please select you delivery type:</div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-start">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="radio" id="delivery_type" name="delivery_type" value="DOX">
+                  <label for="DOX" class="form-check-label">Documents</label><br>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="radio" id="delivery_type" name="delivery_type" value="WPX" checked="checked">
+                  <label class="form-check-label" for="WPX">Package only</label><br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 mb-4">
+            <div class="row shadow m-4 rounded-3 w-100 m-auto">
+              <div class="col-md-6">
+                <div class="h5 text-end">Please select the goods:</div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-start">
+                  <div class="product_selection_container">
+                    {%for product in products%}
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="{{product.product_name}}" name="goods_type" value="{{product.product_name}}">
+                      <label class="form-check-label" for="{{product.product_name}}">{{product.product_name}}</label><br>
+                    </div>
+                    {%endfor%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shadow rounded-3 w-100 m-auto">
+            <div class="h4 text-white bg-primary p-1">Give your Package details</div>
+            <div class="row p-2">
+              <div class="col-md-6">
+                <input class="btn-check" type="radio" name="tab" id="dimensions" value="igotnone" onclick="show();" />
+                <label class="btn btn-outline-primary" for="dimensions"> Package dimensions (height,weight,length):</label>
+              </div>
+              <div class="col-md-6">
+                <input type="radio" class="btn-check" name="tab" id="input_weight" value="igottwo" onclick="show();" />
+                <label class="btn btn-outline-primary" for="input_weight">Package weight (in kg):</label>
+              </div>
+            </div>
+
+            <div id="div1" style="display: none;">
+              <div class="mb-2">
+                <div class="form-group">
+                  <div class="row m-1">
+                    <div class="col-md-4">
+                      <label class="form-label" for="height">Height (cm):</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input class="form-control" type="text" id="height" name="height" value="">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row m-1">
+                    <div class="col-md-4">
+                      <label class="form-label" for="width">Width (cm):</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input class="form-control" type="text" id="width" name="width" value="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group pb-2">
+                  <div class="row m-1">
+                    <div class="col-md-4">
+                      <label class="form-label" for="length">Length (cm):</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input class="form-control" type="text" id="length" name="length" value="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="div2" style="display: none;">
+              <div class="form-group pb-2">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label class="form-label" for="width">Weight (kg):</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input class="form-control" type="text" id="weight" name="weight" value="0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+            <input class="m-4 p-2 btn btn-outline-primary" type="submit" value="Continue >>">
+          </div>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+  <!-- Footer Start -->
+  <div class="container-fluid position-relative overlay-top bg-dark text-white-50 py-1" style="margin-top: 90px">
+    <div class="container mt-2 pt-5">
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Get In Touch</h3>
+          <p>
+            <i class="fa fa-map-marker-alt mr-2"></i>Gulfesha Plaza, Level 3, Suite No J/K, 8, Shahid Shangbadik Selina Parvin Sarok, Moghbazar, Ramna, Dhaka, PO : 1217,
+            Bangladesh
+          </p>
+          <p><i class="fa fa-phone-alt mr-2"></i>+88001611106000 +880018413624360</p>
+          <p><i class="fa fa-envelope mr-2"></i>info@7tonexpress.com</p>
+          <div class="d-flex justify-content-start mt-4">
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
+            <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
+            <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Our Services</h3>
+          <div class="d-flex flex-column justify-content-start">
+            <a class="text-white-50 mb-2" href="https://7tonexpress.com/freight-forward.html"><i class="fa fa-angle-right mr-2"></i>Freight Forwarding</a>
+            <a class="text-white-50 mb-2" href="https://7tonexpress.com/buy-bring.html"><i class="fa fa-angle-right mr-2"></i>Buy and Bring</a>
+            <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>International Courier</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-5">
+          <h3 class="text-white mb-4">Quick Links</h3>
+          <div class="d-flex flex-column justify-content-start">
+            <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bg-dark text-white-50 border-top py-4"
+    style="border-color: rgba(256, 256, 256, 0.1) !important">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+          <p class="m-0">
+ 2022  &copy;
+            <a class="text-white" href="#">7TonExpress </a>. All Rights
+            Reserved.
+          </p>
+        </div>
+        <div class="col-md-6 text-center text-md-right">
+          <p class="m-0">
+            Designed by
+            <a class="text-white" href="/">7TonExpress
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+  <script>
+    function show() {
+      if (document.getElementById('dimensions').checked) {
+        document.getElementById('div2').style.display = 'none';
+        document.getElementById('div1').style.display = 'block';
+        document.getElementById("weight").value = "0.0";
+
+
+      }
+      else if (document.getElementById('input_weight').checked) {
+        document.getElementById('div1').style.display = 'none';
+        document.getElementById('div2').style.display = 'block';
+        document.getElementById("height").value = "0.0";
+        document.getElementById("length").value = "0.0";
+        document.getElementById("width").value = "0.0";
+      }
+
+    }
+    
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>

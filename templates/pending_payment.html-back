@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="title">Recent Orders whose deliveries are still pending:</div>
+    <!--<h6 class="title" style="font-size:15px !important;">Pickup address</h6>-->
+
+    <ul class="order_info_container">
+     {%for x in pending_order%}
+     <li style="color:black !important;">
+       {{x}}
+     </li>
+         
+     {%endfor%}
+     
+      
+    </ul>
+    <form action="/home/" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Go to Homepage" name="continue-btn" id="btn">
+    </form>
+</body>
+</html>
