@@ -1,0 +1,270 @@
+from django.db import models
+
+# Create your models here.
+
+
+class Pending_deliverie(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+
+
+class Completed_deliverie(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+class Pending_payment(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+
+
+class Completed_payment(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+
+class Deliverie(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+class Payment(models.Model):
+    id=models.BigIntegerField(primary_key=True)
+    tracking_id=models.CharField(max_length=200)
+    user_name=models.CharField(max_length=500)
+    sender_name=models.CharField(max_length=100)
+    sender_phn_number=models.CharField(max_length=500)
+    sender_email=models.CharField(max_length=200)
+    pick_country=models.CharField(max_length=200)
+    pick_state=models.CharField(max_length=200)
+    pick_town=models.CharField(max_length=200)
+    pick_house_number=models.CharField(max_length=200)
+    pick_street_name=models.CharField(max_length=200)
+    pick_apartment_number=models.CharField(max_length=200)
+    pick_zip_code=models.CharField(max_length=200)
+    recipient_name=models.CharField(max_length=200)
+    recipient_email_1=models.CharField(max_length=200)
+    recipient_email_2=models.CharField(max_length=200)
+    recipient_phone=models.CharField(max_length=200)
+    country=models.CharField(max_length=200)
+    state=models.CharField(max_length=200)
+    town=models.CharField(max_length=200)
+    house_number=models.CharField(max_length=200)
+    street_name=models.CharField(max_length=200)
+    apartment_number=models.CharField(max_length=200)
+    zip_code=models.CharField(max_length=200)
+    product_details=models.CharField(max_length=1000)
+    delivery_type=models.CharField(max_length=200)
+    pickup_date_start=models.CharField(max_length=200)
+    pickup_date_end=models.CharField(max_length=200)
+    delivery_status=models.CharField(max_length=200)
+    payment_status=models.CharField(max_length=200)
+    estimated_weight=models.FloatField()
+    estimated_cost=models.FloatField()
+    volumetric_weight=models.FloatField()
+    payment_URL=models.CharField(max_length=1000)
+    po_box=models.CharField(max_length=500)
+    payment_done=models.FloatField()
+    def _str_(self):
+         return self.user_name
+    class Meta:
+        db_table="delivery_order_info"
+        managed = False
+
+
